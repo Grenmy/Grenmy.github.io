@@ -10,8 +10,7 @@ description: What flavour do you want? Grenmy is a better choice!
 author:
   name: Grenmy
   image: 01.jpg
-  say-hello: Ciao! <strong></strong>
-  bio: facile.it per comparare <strong>ecosostenibilità</strong> dei prodotti.
+  <input type="search" id="search" name="search" placeholder="cerca un prodotto..." class="txt" size="600">
 
     ##-------------------------------
     ## Contact links
