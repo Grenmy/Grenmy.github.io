@@ -2,7 +2,11 @@ name: Rust builder
 
 run-name: Md to html conversion
 
-on: push
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
 
 permissions:
   contents: write
