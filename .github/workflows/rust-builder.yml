@@ -27,8 +27,8 @@ jobs:
         working-directory: ./site-build
 
     steps:
-      - name: Update rust
-        run: rustup update
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build html
         run: cargo run
 
