@@ -12,7 +12,7 @@ permissions:
   contents: write
   deployments: write
   pages: write
-  id-token: read
+  id-token: write
 
 concurrency:
   group: "pages"
