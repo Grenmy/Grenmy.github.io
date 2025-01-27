@@ -30,12 +30,12 @@ jobs:
         - name: Setup Pages
           uses: actions/configure-pages@v4
         - name: Build html
-          run: cd script && cargo run && cd ..
+          run: cd site-build && cargo run && cd ..
         - name: Upload artifact
           uses: actions/upload-pages-artifact@v2
-          # with:
-          #   # Upload site folder
-          #   path: './site'
+          with:
+            # Upload site folder
+            path: './site'
         - name: Deploy to GitHub Pages
           id: deployment
           uses: actions/deploy-pages@v3

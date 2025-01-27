@@ -22,6 +22,8 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 
+extern crate rayon;
+
 const IGNORE_FOLDERS: [&str; 7] = [
     "layout",
     "assets",

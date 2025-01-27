@@ -1,6 +1,6 @@
-//! # Markdown to HTML
+//! # Markdown to html
 //!
-//! This program converts a directory of Markdown files to HTML files.
+//! This program converts a directory of markdown files to html files.
 //! The structure of the directory needs to be the following:
 //! ```markdown
 //! target
@@ -19,13 +19,22 @@
 //!
 //! Once the program is run, it will wait for an event to occur in the target
 //! directory.
+//!
+//! ## Idee
+//! - usare axum per creare un server che serve i file html (molto simile a actix-web)
 
 mod md_to_html;
+use chrono::Local;
 use md_to_html::md_to_html;
 
 fn main() -> Result<(), std::io::Error> {
-    let src = "path/to/md";
-    let out = "path/to/out";
+    let target = "../";
+    let dest = "../";
+    match md_to_html(&target, &dest) {
+        // print DD/MM/YYYY-HH:MM:SS
+        Ok(_) => println!("success {}", Local::now().format("%d/%m/%Y-%H:%M:%S")),
+        Err(e) => println!("error: {:?}", e),
+    }
 
-    md_to_html(&src, &out)
+    Ok(())
 }
