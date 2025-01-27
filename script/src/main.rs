@@ -26,14 +26,40 @@
 mod md_to_html;
 use chrono::Local;
 use md_to_html::md_to_html;
+use std::fs;
+use std::path::PathBuf;
 
 fn main() -> Result<(), std::io::Error> {
     let target = "../";
-    let dest = "../";
+    let dest = "../site";
+
+    copy_dir_all(&PathBuf::from(target), &PathBuf::from(dest))?;
+
     match md_to_html(&target, &dest) {
         // print DD/MM/YYYY-HH:MM:SS
         Ok(_) => println!("success {}", Local::now().format("%d/%m/%Y-%H:%M:%S")),
         Err(e) => println!("error: {:?}", e),
+    }
+
+    Ok(())
+}
+
+fn copy_dir_all(src: &PathBuf, dst: &PathBuf) -> Result<(), std::io::Error> {
+    if !dst.exists() {
+        fs::create_dir_all(dst)?;
+    }
+
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let ty = entry.file_type()?;
+        let src_path = entry.path();
+        let dst_path = dst.join(entry.file_name());
+
+        if ty.is_dir() {
+            copy_dir_all(&src_path, &dst_path)?;
+        } else {
+            fs::copy(&src_path, &dst_path)?;
+        }
     }
 
     Ok(())
