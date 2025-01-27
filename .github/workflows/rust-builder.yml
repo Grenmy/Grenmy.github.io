@@ -35,7 +35,7 @@ jobs:
           uses: actions/upload-pages-artifact@v2
           with:
             # Upload site folder
-            path: './site'
+            path: './_site'
         - name: Deploy to GitHub Pages
           id: deployment
           uses: actions/deploy-pages@v3

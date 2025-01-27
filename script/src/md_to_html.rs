@@ -24,7 +24,7 @@ use std::path::PathBuf;
 
 extern crate rayon;
 
-const IGNORE_FOLDERS: [&str; 7] = [
+pub const IGNORE_FOLDERS: [&str; 9] = [
     "layout",
     "assets",
     "target",
@@ -32,6 +32,8 @@ const IGNORE_FOLDERS: [&str; 7] = [
     ".git",
     ".github",
     ".obsidian",
+    "script",
+    "_site",
 ];
 
 const IGNORE_FILES: [&str; 1] = ["README.md"]; // only .md files are converted
@@ -370,7 +372,6 @@ fn replace_use(content: &str, target: &str) -> String {
         if s.trim().starts_with("use") {
             let mut layout = PathBuf::from(target).join("layout");
             layout = layout.join(s.trim()[4..].to_owned() + ".html");
-            println!("{:?}", layout);
             html += &fs::read_to_string(&layout).unwrap();
         } else {
             html = html + "\n" + s;

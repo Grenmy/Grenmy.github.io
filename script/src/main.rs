@@ -25,13 +25,13 @@
 
 mod md_to_html;
 use chrono::Local;
-use md_to_html::md_to_html;
+use md_to_html::{md_to_html, IGNORE_FOLDERS};
 use std::fs;
 use std::path::PathBuf;
 
 fn main() -> Result<(), std::io::Error> {
     let target = "../";
-    let dest = "../site";
+    let dest = "../_site/";
 
     copy_dir_all(&PathBuf::from(target), &PathBuf::from(dest))?;
 
@@ -45,6 +45,14 @@ fn main() -> Result<(), std::io::Error> {
 }
 
 fn copy_dir_all(src: &PathBuf, dst: &PathBuf) -> Result<(), std::io::Error> {
+    match src.file_name() {
+        Some(path) => {
+            if IGNORE_FOLDERS.contains(&path.to_str().unwrap()) {
+                return Ok(());
+            }
+        }
+        None => {}
+    }
     if !dst.exists() {
         fs::create_dir_all(dst)?;
     }
